@@ -1,0 +1,18 @@
+
+:root {
+  // base
+  --font-family: 'Montserrat', sans-serif;
+  --font-family-work: 'Work Sans', sans-serif;
+  --content-width: 1110px;
+  --container-offset: 15px;
+  --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
+
+  // colors
+  --light-color: #fff;
+  --dark-color:  #252525;
+  --bkg-color: #E5E5E5;
+  --linear-grad: linear-gradient(134.57deg, #FFFFFF 0%, #D3D3D3 100%);
+  --primary-color: #AB0433;
+  --btn-color: #FF753A;
+  --grey-color: #505050;
+}
