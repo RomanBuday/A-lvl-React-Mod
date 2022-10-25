@@ -2,100 +2,66 @@ import './register.scss';
 
 const Register = () => {
   return (
-    <section className="register" id="registerModal">
-      <div className="container register-container">
-        <div className="register-content fade">
-          <h3 className="register-header">Register form</h3>
+    <section classname="register" id="registerModal">
+      <div classname="container register-container">
+        <div classname="register-content fade">
 
-          <form className="register-form" action="#">
-            <div className="register-name register-form__field">
-              <label className="register-name__label" for="text">
-                My name:
-              </label>
-              <input
-                className="register-name__input register-form__input"
-                type="text"
-                name="name"
-                id="name"
-                placeholder="My name is..."
-              />
-            </div>
+          <div classname="register-cross">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z" /></svg>
+          </div>
 
-            <div className="register-surname register-form__field">
-              <label className="register-surname__label" for="text">
-                My your surname:
-              </label>
-              <input
-                className="register-surname__input register-form__input"
-                type="text"
-                name="name"
-                id="name"
-                placeholder="My surname is..."
-              />
-            </div>
+          <h3 classname="register-header">Register form</h3>
 
-            <div className="register-mail register-form__field">
-              <label className="register-mail__label" for="text">
-                Enter mail:
-              </label>
-              <input
-                className="register-mail__input register-form__input"
-                type="email"
-                name="name"
-                id="name"
-                placeholder="My email@..."
-              />
-            </div>
 
-            <div className="register-lock register-form__field">
-              <label className="register-lock__label" for="password">
-                Enter your password:
-              </label>
-              <input
-                className="register-lock__input register-form__input"
-                type="password"
-                name="name"
-                id="name"
-                placeholder="******"
-              />
-            </div>
-
-            <div className="register-lock register-form__field">
-              <label className="register-lock__label" for="password">
-                Confirm your password:
-              </label>
-              <input
-                className="register-lock__input register-form__input"
-                type="password"
-                name="name"
-                id="name"
-                placeholder="******"
-              />
-            </div>
-
-            {/* <div className="register-avatar">
-              <div className="register-avatar__img">
-                <img src="" alt="avatar" />
+          <form classname="register-form" action="#">
+            <div classname="register-form__input">
+              <div classname="register-name register-form__field">
+                <label classname="register-name__label" for="text">My name:</label>
+                <input classname="register-name__input register-form__input" type="text" name="name" id="name" placeholder="My name is..." />
               </div>
 
-              <label class="register-avatar__form"> 
-                <input class="register-avatar__form" type="file" name="data[file]" placeholder="Upload file" />
- 	                <button class="register-avatar__btn btn-buy"> 
- 		                <span class="register-avatar__file">Upload File</span> 
- 	                </button> 
-              </label>
-            </div> */}
+              <div classname="register-surname register-form__field">
+                <label classname="register-surname__label" for="text">My your surname:</label>
+                <input classname="register-surname__input register-form__input" type="text" name="name" id="name" placeholder="My surname is..." />
+              </div>
 
-            <div className="register-signIn">
-              <input
-                className="register-btn btn-buy"
-                type="submit"
-                value="Register"
-              />
+              <div classname="register-mail register-form__field">
+                <label classname="register-mail__label" for="text">Enter mail:</label>
+                <input classname="register-mail__input register-form__input" type="email" name="name" id="name" placeholder="My email@..." />
+              </div>
+
+              <div classname="register-lock register-form__field">
+                <label classname="register-lock__label" for="password">Enter your password:</label>
+                <input classname="register-lock__input register-form__input" type="password" name="name" id="name" placeholder="******" />
+              </div>
+
+              <div classname="register-lock register-form__field">
+                <label classname="register-lock__label" for="password">Confirm your password:</label>
+                <input classname="register-lock__input register-form__input" type="password" name="name" id="name" placeholder="******" />
+              </div>
             </div>
 
-            <div className="register-signIn">
-              <button className="register-btn__cancel btn-buy">Cancel</button>
+            <div classname="register-form__btn">
+              <form classname="register-avatar" method="post">
+                <div classname="register-avatar__img">
+                  <img src="" alt="avatar"/>
+                </div>
+
+                <label classname="register-avatar__label">
+                  <input classname="register-avatar__form" type="file" accept="image/png, image/jpeg" name="data[file]" placeholder="Upload file" />
+                  <button classname="register-avatar__btn btn-buy">
+                    <span classname="register-avatar__file">Upload File</span>
+                  </button>
+                </label>
+              </form>
+
+              <div classname="register-signIn">
+                <input classname="register-btn btn-buy" type="submit" value="Register" />
+              </div>
+
+              <div classname="register-signIn">
+                <button classname="register-btn__cancel btn-buy">Cancel</button>
+              </div>
             </div>
           </form>
         </div>

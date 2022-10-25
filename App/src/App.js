@@ -8,6 +8,7 @@ import Footer from './components/Footer/footer';
 import NotFound from './components/NotFound/404';
 import Register from './components/Register/register';
 import Cart from './components/Cart/cart';
+import Profile from './components/Profile/profile';
 
 import './scss/main.scss';
 
@@ -20,7 +21,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Store />} />
             <Route path='/cart' element={<Cart />} />
-            {/* <Route path='/userPage' element={<Profile />} /> */}
+            <Route path='/profile' element={<Profile />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='*' element={<NotFound />} />
