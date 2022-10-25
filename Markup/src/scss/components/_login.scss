@@ -8,6 +8,18 @@
   //opacity: 0;
   transition: opacity 200ms ease-in;
   //pointer-events: none;
+  &-cross {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    right: 15px;
+    top: 10px;
+    svg {
+      fill: rgb(135, 16, 16);
+      opacity: .5;
+    }
+  }
   &:target {
     opacity: 1;
     pointer-events: auto;

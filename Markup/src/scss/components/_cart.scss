@@ -27,6 +27,18 @@
     border-radius: .3rem;
     text-align: center;
     padding: 20px;
+    &__cross {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      right: 15px;
+      top: 10px;
+      svg {
+        fill: rgb(135, 16, 16);
+        opacity: .5;
+      }
+    }
   }
   &-descr {
     padding: 10px;
