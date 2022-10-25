@@ -1,0 +1,13 @@
+// базовые подключения
+@import "vars";
+@import "fonts";
+@import "settings";
+
+// подключения компонентов страницы
+@import "./components/header";
+@import "./components/store";
+@import "./components/footer";
+
+@import "./components/cart";
+@import "./components/login";
+@import "./components/register";
