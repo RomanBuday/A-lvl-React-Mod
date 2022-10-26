@@ -9,6 +9,10 @@
       align-items: center;
       padding-top: 56px;
     }
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
     &-link {
       margin-right: 24px;
     }
@@ -54,7 +58,28 @@
         cursor: pointer;
       }
       &__cart {
+        position: relative;
         margin-right: 16px;
+      }
+      &__btn {
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      &__orders {
+        border-radius: 100%;
+        width: 18px;
+        height: 18px;
+        font-size: 14px;
+        background: var(--light-color);
+        font-family: var(--font-family-work);
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items:center;
       }
     }
     &-title {
@@ -66,6 +91,7 @@
     &-bottom {
       padding: 0 120px;
       transform: translateY(100%);
+      font-family: var(--font-family);
     }
     &-player {
       padding: 20px 0;

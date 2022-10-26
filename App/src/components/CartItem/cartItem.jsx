@@ -1,5 +1,16 @@
 const CartItem = props => {
-  const { band, album_img, price, album, genre, year, vinyl, item_id } = props;
+  const {
+    band,
+    album_img,
+    price,
+    album,
+    genre,
+    year,
+    vinyl,
+    item_id,
+    onAddToCartClick
+  } = props;
+
   return (
     <div className="shop-item" key={item_id}>
       <div className="shop-item__img">
@@ -31,7 +42,23 @@ const CartItem = props => {
           </span>
         </div>
 
-        <button className="shop-btn btn-buy">Add to Cart</button>
+        <button
+          className="shop-btn btn-buy"
+          onClick={e =>
+            onAddToCartClick(e, {
+              band,
+              album_img,
+              price,
+              album,
+              genre,
+              year,
+              vinyl,
+              item_id
+            })
+          }
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );
