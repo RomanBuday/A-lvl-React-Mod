@@ -7,25 +7,36 @@ import Search from '../Search/search';
 import Filter from '../Filter/filter';
 
 import './store.scss';
+import { addItem } from '../../store/cart';
 
-const renderCartItems = (allSongs, filter) => {
+const renderCartItems = (allSongs, filter, onAddToCartClick) => {
   const songs =
     filter.search.length < 3
       ? allSongs
-      : allSongs.filter(s => s.band?.includes(filter.search));
+      : allSongs.filter(s =>
+          s.band.toLowerCase().includes(filter.search.toLowerCase())
+        );
 
   const sortedSongs = filter.sort.price
     ? [...songs].sort((a, b) => (Number(a.price) > Number(b.price) ? 1 : -1))
     : songs;
 
   return sortedSongs.map(cartItem => (
-    <CartItem {...cartItem} key={cartItem.item_id}></CartItem>
+    <CartItem
+      {...cartItem}
+      key={cartItem.item_id}
+      onAddToCartClick={onAddToCartClick}
+    ></CartItem>
   ));
 };
 
 const Store = () => {
   const [music, filter] = useSelector(state => [state.music, state.filter]);
   const dispatch = useDispatch();
+
+  const onAddToCartClick = (e, song) => {
+    dispatch(addItem(song));
+  };
 
   const fetchSongs = useCallback(async () => {
     const response = await fetch(
@@ -148,7 +159,7 @@ const Store = () => {
 
             {music.songs.length && (
               <div className="shop-wrapper">
-                {renderCartItems(music.songs, filter)}
+                {renderCartItems(music.songs, filter, onAddToCartClick)}
               </div>
             )}
           </div>

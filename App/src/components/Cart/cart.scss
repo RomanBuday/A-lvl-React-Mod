@@ -1,25 +1,10 @@
 .modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   background: rgba(0,0,0,0.5);
-  opacity: 0;
-  transition: opacity 200ms ease-in;
-  pointer-events: none; 
-  
-  &:target {
-    opacity: 1;
-    pointer-events: auto;
-    overflow-y: auto;
-  }
-  &-container {
-    width: fit-content;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  pointer-events: none;
+  font-family: var(--font-family-work);
+  &-header {
+    text-transform: uppercase;
+    font-family: var(--font-family);
   }
   &-content {
     background:var(--bkg-color);
@@ -49,6 +34,12 @@
     padding: 10px;
     display: flex;
     align-items: center;
+    width: 33%;
+    &__wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
     &__img {
       width: 100px;
       height: 100px;
@@ -64,9 +55,11 @@
     display: flex;
     margin-top: 10px;
     &__minus {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 20px;
       height: 20px;
-      position: relative;
       background-color: #3C44B1;
       border-radius: 2px;
       border: none;
@@ -79,9 +72,11 @@
       margin-right: 12px;
     }
     &__plus {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 20px;
       height: 20px;
-      position: relative;
       background-color: #3C44B1;
       border-radius: 2px;
       border: none;
@@ -91,16 +86,20 @@
       transform: rotate(-90deg);
     }
     &__remove {
+      display: flex;
+      align-items: center;
+      padding: 0;
       width: 20px;
       height: 20px;
-      position: relative;
       background: rgba(248, 50, 69, 0.15);
       border-radius: 2px;
-      font-size: 16px;
-      color:#F83245;
-      border: none;
+      border: 1px solid var(--light-color);
       cursor: pointer;
-      margin-right: 30px;
+      svg {
+        fill: red;
+        width: 18px;
+        height: 18px;
+      }
     }
   }
   &-total{
@@ -108,6 +107,9 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 15px;
+    &__text {
+      text-decoration: underline;
+    }
   }
   &-btn {
     display: flex;
