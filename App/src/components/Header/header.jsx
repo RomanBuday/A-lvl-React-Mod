@@ -1,6 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut} from 'firebase/auth';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut
+} from 'firebase/auth';
 import 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,32 +17,25 @@ import profile_icon from '../../img/svg/profile_icon.svg';
 import SignIn from '../SignIn/signing';
 
 import './header.scss';
-import { getApp, getUserCart, setUserCart } from '../../firebase';
+import { getApp } from '../../firebase';
 import { setUser, removeUser } from '../../store/user';
+import { fetchCart } from '../../store/cart';
 
 const app = getApp();
 const auth = getAuth(app);
 
 const Header = () => {
+  const navigate = useNavigate();
   const cart = useSelector(state => state.cart);
+  const dispatch = useDispatch();
 
   const [user] = useAuthState(auth);
-  if (user) {
-    setUserCart(user.email, cart.items);
-  }
-
-  // TODO:
-  // const fetchCart = useCallback(async () => {
-  //   const cartItems = await getUserCart();
-
-  //   dispatch(setUserCart(cartItems.cartItems));
-  // }, []);
-
-  // useEffect(() => {
-  //   fetchCart().catch(console.error);
-  // }, [user]);
-
-  const dispatch = useDispatch();
+  useEffect(() => {
+    if (user?.email) {
+      dispatch(setUser(user));
+      dispatch(fetchCart(user.email));
+    }
+  }, [user]);
 
   const onClickSignOut = () => {
     signOut(auth)
@@ -60,12 +58,11 @@ const Header = () => {
         // The signed-in user info.
         const user = result.user;
         dispatch(setUser(user));
+        dispatch(fetchCart(user.email));
       })
       .catch(error => {
-        debugger;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        navigate('/404'); // TODO: show error
       });
   };
 
@@ -77,7 +74,7 @@ const Header = () => {
     <header className="header">
       <div className="container">
         <div className="header-top">
-          <a class='header-top__logo' href="/">
+          <a className="header-top__logo" href="/">
             <img src={logo} alt="central music logo" />
           </a>
 
@@ -90,14 +87,18 @@ const Header = () => {
                 Store
               </li>
               <li className="header-menu__item" href="">
-                Register
+                Sign In
               </li>
-              <Link to="/Profile"><li className="header-menu__item" href="">
-                My Profile
-              </li></Link>
-              <Link to="/NotFound"><li className="header-menu__item" href="">
-                Contacts
-              </li></Link>
+              <Link to="/Profile">
+                <li className="header-menu__item" href="">
+                  My Profile
+                </li>
+              </Link>
+              <Link to="/NotFound">
+                <li className="header-menu__item" href="">
+                  Contacts
+                </li>
+              </Link>
             </ul>
           </nav>
 
@@ -106,7 +107,7 @@ const Header = () => {
               <div className="header-actions__cart header-actions__icon fade">
                 <Link to="/cart">
                   <img src={icon_cart} alt="cart icon" />
-                  <div className='header-actions__orders'>
+                  <div className="header-actions__orders">
                     <span>{cart.items.length}</span>
                   </div>
                 </Link>
@@ -118,7 +119,12 @@ const Header = () => {
                   <Link to="/Profile">
                     <img src={profile_icon} alt="profile icon" />
                   </Link>{' '}
-                  <button className='btn-buy header-actions__btn' onClick={onClickSignOut}>Sign out</button>{' '}
+                  <button
+                    className="btn-buy header-actions__btn"
+                    onClick={onClickSignOut}
+                  >
+                    Sign out
+                  </button>{' '}
                 </div>
               ) : (
                 <SignIn onClick={onClickSignIn} />
@@ -137,7 +143,10 @@ const Header = () => {
               <button className="header-player__btn btn_play" onClick={play()}>
                 Play
               </button>
-              <button className="header-player__btn btn_pause" onClick={pause()}>
+              <button
+                className="header-player__btn btn_pause"
+                onClick={pause()}
+              >
                 Pause
               </button>
               <button className="header-player__btn btn_stop" onClick={stop()}>

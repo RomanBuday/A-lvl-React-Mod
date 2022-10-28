@@ -1,0 +1,43 @@
+.releases {
+  &-title {
+    padding: 40px 0;
+  }
+  &-wrapper {
+    display: flex;
+    justify-content: space-around;
+  }
+  &-item {
+    display: flex;
+    &__img {
+      max-width: 200px;
+      max-height: 200px;
+      cursor: pointer;
+    }
+    &__descr {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  &-descr {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family);
+    &__list {
+      margin-top: 5px;
+    }
+    &__album {
+      font-weight: 700;
+      font-size: 21px;
+    }
+    &__price {
+      font-weight: 700;
+    }
+  }
+  &-btn {
+    margin-top: 12px;
+    //width: 50%;
+    align-self: center;
+  }
+}

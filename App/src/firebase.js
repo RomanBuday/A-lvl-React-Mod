@@ -17,8 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log('AAAAAAAAAAAAAAAA');
-
 export function getApp() {
   return app;
 }
@@ -29,8 +27,9 @@ export function setUserCart(userId, data) {
   });
 }
 
-export async function getUserCart(userId) {
-  const docRef = doc(db, "cart", userId);
-  const result = await getDoc(docRef);
-  return result;
+export async function getUserCart(email) {
+  const docRef = doc(db, "cart", email);
+  const document = await getDoc(docRef);
+  const result = document.data();
+  return result.cartItems;
 }

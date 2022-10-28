@@ -1,13 +1,14 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setSongs } from '../../store/music';
+import { fetchAllSongs } from '../../store/music';
 import CartItem from '../CartItem/cartItem';
 import Search from '../Search/search';
 import Filter from '../Filter/filter';
+import Slider from '../Slider/slider';
 
 import './store.scss';
-import { addItem } from '../../store/cart';
+import { addToCart } from '../../store/cart';
 
 const renderCartItems = (allSongs, filter, onAddToCartClick) => {
   const songs =
@@ -31,124 +32,28 @@ const renderCartItems = (allSongs, filter, onAddToCartClick) => {
 };
 
 const Store = () => {
-  const [music, filter] = useSelector(state => [state.music, state.filter]);
+  const [music, filter, cart, user] = useSelector(state => [
+    state.music,
+    state.filter,
+    state.cart,
+    state.user
+  ]);
   const dispatch = useDispatch();
 
   const onAddToCartClick = (e, song) => {
-    dispatch(addItem(song));
+    dispatch(
+      addToCart({ userId: user?.user?.email, items: [...cart.items, song] })
+    );
   };
 
-  const fetchSongs = useCallback(async () => {
-    const response = await fetch(
-      'https://6351911a9d64d7c713032106.mockapi.io/api/music'
-    );
-    const json = await response.json();
-
-    dispatch(setSongs(json));
-  }, [dispatch]);
-
   useEffect(() => {
-    fetchSongs().catch(console.error);
-  }, [fetchSongs]);
+    dispatch(fetchAllSongs());
+  }, []);
 
   return (
     <section className="store">
       <div className="container">
-        <div className="releases">
-          <h2 className="releases-title store-title">New Releases</h2>
-
-          <div className="releases-wrapper">
-            <div className="releases-item">
-              <div className="releases-item__img">
-                <img src="img/album/TattooYou_Stones.jpg" alt="releases" />
-              </div>
-
-              <div className="releases-item__descr">
-                <div className="releases-info">
-                  <span className="releases-info__band">Rolling Stones</span>
-                  <span className="releases-info__price">20$</span>
-                </div>
-
-                <div className="releases-descr">
-                  <span className="releases-descr__album releases-descr__list">
-                    <span>Album: </span>Tatoo you
-                  </span>
-                  <span className="releases-descr__year releases-descr__list">
-                    <span>Year: </span>1987
-                  </span>
-                  <span className="releases-descr__genre releases-descr__list">
-                    <span>Genre: </span>rock&roll
-                  </span>
-                  <span className="releases-descr__record releases-descr__list">
-                    <span>Record: </span>vinyl
-                  </span>
-                </div>
-
-                <button className="releases-btn btn-buy">Add to Cart</button>
-              </div>
-            </div>
-
-            <div className="releases-item">
-              <div className="releases-item__img">
-                <img src="img/album/TattooYou_Stones.jpg" alt="releases" />
-              </div>
-
-              <div className="releases-item__descr">
-                <div className="releases-info">
-                  <span className="releases-info__band">Rolling Stones</span>
-                  <span className="releases-info__price">20$</span>
-                </div>
-
-                <div className="releases-descr">
-                  <span className="releases-descr__album releases-descr__list">
-                    <span>Album: </span>Tatoo you
-                  </span>
-                  <span className="releases-descr__year releases-descr__list">
-                    <span>Year: </span>1987
-                  </span>
-                  <span className="releases-descr__genre releases-descr__list">
-                    <span>Genre: </span>rock&roll
-                  </span>
-                  <span className="releases-descr__record releases-descr__list">
-                    <span>Record: </span>vinyl
-                  </span>
-                </div>
-
-                <button className="releases-btn btn-buy">Add to Cart</button>
-              </div>
-            </div>
-
-            <div className="releases-item">
-              <div className="releases-item__img">
-                <img src="img/album/TattooYou_Stones.jpg" alt="releases" />
-              </div>
-
-              <div className="releases-item__descr">
-                <div className="releases-info">
-                  <span className="releases-info__band">Rolling Stones</span>
-                  <span className="releases-info__price">20$</span>
-                </div>
-
-                <div className="releases-descr">
-                  <span className="releases-descr__album releases-descr__list">
-                    <span>Album: </span>Tatoo you
-                  </span>
-                  <span className="releases-descr__year releases-descr__list">
-                    <span>Year: </span>1987
-                  </span>
-                  <span className="releases-descr__genre releases-descr__list">
-                    <span>Genre: </span>rock&roll
-                  </span>
-                  <span className="releases-descr__record releases-descr__list">
-                    <span>Record: </span>vinyl
-                  </span>
-                </div>
-
-                <button className="releases-btn btn-buy">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Slider />
 
         <div className="shop">
           <h2 className="shop-title store-title">Music Shop</h2>
