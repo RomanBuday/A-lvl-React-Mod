@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchAllSongs } from '../../store/music';
 import CartItem from '../CartItem/cartItem';
 import Search from '../Search/search';
 import Filter from '../Filter/filter';
@@ -10,7 +8,11 @@ import Slider from '../Slider/slider';
 import './store.scss';
 import { addToCart } from '../../store/cart';
 
-const renderCartItems = (allSongs, filter, onAddToCartClick) => {
+const renderCartItems = (
+  allSongs,
+  filter,
+  onAddToCartClick,
+) => {
   const songs =
     filter.search.length < 3
       ? allSongs
@@ -46,10 +48,6 @@ const Store = () => {
     );
   };
 
-  useEffect(() => {
-    dispatch(fetchAllSongs());
-  }, []);
-
   return (
     <section className="store">
       <div className="container">
@@ -64,7 +62,11 @@ const Store = () => {
 
             {music.songs.length && (
               <div className="shop-wrapper">
-                {renderCartItems(music.songs, filter, onAddToCartClick)}
+                {renderCartItems(
+                  music.songs,
+                  filter,
+                  onAddToCartClick
+                )}
               </div>
             )}
           </div>

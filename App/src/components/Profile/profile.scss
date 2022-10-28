@@ -1,39 +1,11 @@
 .profile {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0,0,0,0.5);
-  //opacity: 0;
+  background: var(--grey-color);
+  font-family: var(--font-family-work);
+  padding: 15px 0;
   transition: opacity 200ms ease-in;
-  //pointer-events: none;
-  &-cross {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    right: 15px;
-    top: 10px;
-    svg {
-      fill: rgb(135, 16, 16);
-      opacity: .5;
-    }
-  }
-  &:target {
-    opacity: 1;
-    pointer-events: auto;
-    overflow-y: auto;
-  }
-  &-container {
-    width: fit-content;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
   &-content {
     background:var(--bkg-color);
+    box-shadow: 14px 14px 5px 0px rgba(0,0,0,0.75);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -43,11 +15,28 @@
     border-radius: .3rem;
     text-align: center;
     padding: 20px;
-
   }
   &-header {
     margin: 0;
     margin-top: 20px;
+    font-weight: 700;
+    font-size: 24px;
+    text-decoration: underline;
+  }
+  &-avatar {
+    display: flex;
+    flex-direction: column;
+    &__btn {
+      margin-top: 10px;
+    }
+    &__form {
+      margin-top: 10px;
+      height: fit-content;
+    }
+    &__label {
+      font-family: var(--font-family);
+      font-size: 14px;
+    }
   }
   &-descr {
     display: flex;
@@ -55,9 +44,11 @@
   &-info {
     display: flex;
     flex-direction: column;
+    width: 25%;
     &__list {
       list-style-type: none;
       text-align: left;
+      padding: 0;
       li {
         margin-top: 5px;
       }
@@ -66,8 +57,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100px;
-      height: 100px;
+      width: 150px;
+      height: 150px;
       border-radius: 5px;
       margin: auto;
       background: #e0e0e0;
@@ -81,14 +72,14 @@
   &-orders {
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
-    width: max-content;
+    margin-left: 20px;
     &__wrapper {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-evenly;
+      justify-content: space-between;
     }
     &__item {
+      width: 23%;
       display: flex;
       flex-direction: column;
       align-items:flex-start;

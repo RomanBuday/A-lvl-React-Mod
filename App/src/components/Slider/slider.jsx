@@ -1,6 +1,3 @@
-import { useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
 import './slider.scss';
 
 import slide from '../../img/album/TattooYou_Stones.jpg';

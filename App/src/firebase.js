@@ -31,5 +31,5 @@ export async function getUserCart(email) {
   const docRef = doc(db, "cart", email);
   const document = await getDoc(docRef);
   const result = document.data();
-  return result.cartItems;
+  return result?.cartItems || [];
 }

@@ -1,29 +1,65 @@
+import { useSelector } from 'react-redux';
 import './profile.scss';
 
-const Profile = () => {
+const renderOrder = item => {
+  const { band, album, price, count, item_id: itemId } = item;
   return (
-    <section className="profile" id="profileModal">
+    <div className="profile-orders__item" key={itemId}>
+      <span className="orders-info__band">Band: {band}</span>
+      <span className="orders-info__album">Album: {album}</span>
+      <span className="orders-info__price">
+        Price: {price}
+        <span>$</span>
+      </span>
+      <span className="orders-info__quantity">
+        Quantity: {count}
+        <span>pcs.</span>
+      </span>
+    </div>
+  );
+};
+
+const Profile = () => {
+  const [user, cart] = useSelector(state => [state.user, state.cart]);
+
+  const { email, displayName, photoURL } = user?.user || {};
+
+  return (
+    <section className="profile" key={email}>
       <div className="container profile-container">
         <div className="profile-content fade">
-
-          <div className="profile-cross" >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z" /></svg>
-          </div>
-
           <h3 className="profile-header">Profile form</h3>
 
           <div className="profile-descr">
             <div className="profile-info">
               <h4 className="profile-descr__header">My log info</h4>
 
-              <div className="profile-info__avatar">
-                <img src="" alt="avatar"/>
-              </div>
+              <form className="profile-avatar" method="post">
+                <div className="profile-info__avatar">
+                  <img src={photoURL} alt="avatar" />
+                </div>
+
+                <label className="profile-avatar__label">
+                  <input
+                    className="profile-avatar__form"
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    name="data[file]"
+                    placeholder="Upload file"
+                  />
+                  <button className="profile-avatar__btn btn-buy">
+                    Upload File
+                  </button>
+                </label>
+              </form>
 
               <ul className="profile-info__list">
-                <li className="info-list info-list__name">Name: <span>Roman</span></li>
-                <li className="info-list info-list__surname">Surname: <span>Budai</span></li>
-                <li className="info-list info-list__mail">Email: <span>asasd@dsdsd.com</span></li>
+                <li className="info-list info-list__name">
+                  Name: <span>{displayName}</span>
+                </li>
+                <li className="info-list info-list__mail">
+                  Email: <span>{email}</span>
+                </li>
               </ul>
 
               <div className="profile-signOut">
@@ -37,54 +73,7 @@ const Profile = () => {
               <h4 className="profile-orders__header">My Orders</h4>
 
               <div className="profile-orders__wrapper">
-                <div className="profile-orders__item">
-                  <span className="orders-info__band">Band: Roling Stones</span>
-                  <span className="orders-info__album">Album: "Tatoo you"</span>
-                  <span className="orders-info__price">Price: 30<span>$</span></span>
-                  <span className="orders-info__quantity">Quantity: 3<span>pcs.</span></span>
-                </div>
-
-                <div className="profile-orders__item">
-                  <span className="orders-info__band">Band: Roling Stones</span>
-                  <span className="orders-info__album">Album: "Tatoo you"</span>
-                  <span className="orders-info__price">Price: 30<span>$</span></span>
-                  <span className="orders-info__quantity">Quantity: 3<span>pcs.</span></span>
-                </div>
-
-                <div className="profile-orders__item">
-                  <span className="orders-info__band">Band: Roling Stones</span>
-                  <span className="orders-info__album">Album: "Tatoo you"</span>
-                  <span className="orders-info__price">Price: 30<span>$</span></span>
-                  <span className="orders-info__quantity">Quantity: 3<span>pcs.</span></span>
-                </div>
-
-                <div className="profile-orders__item">
-                  <span className="orders-info__band">Band: Roling Stones</span>
-                  <span className="orders-info__album">Album: "Tatoo you"</span>
-                  <span className="orders-info__price">Price: 30<span>$</span></span>
-                  <span className="orders-info__quantity">Quantity: 3<span>pcs.</span></span>
-                </div>
-
-                <div className="profile-orders__item">
-                  <span className="orders-info__band">Band: Roling Stones</span>
-                  <span className="orders-info__album">Album: "Tatoo you"</span>
-                  <span className="orders-info__price">Price: 30<span>$</span></span>
-                  <span className="orders-info__quantity">Quantity: 3<span>pcs.</span></span>
-                </div>
-
-                <div className="profile-orders__item">
-                  <span className="orders-info__band">Band: Roling Stones</span>
-                  <span className="orders-info__album">Album: "Tatoo you"</span>
-                  <span className="orders-info__price">Price: 30<span>$</span></span>
-                  <span className="orders-info__quantity">Quantity: 3<span>pcs.</span></span>
-                </div>
-
-                <div className="profile-orders__item">
-                  <span className="orders-info__band">Band: Roling Stones</span>
-                  <span className="orders-info__album">Album: "Tatoo you"</span>
-                  <span className="orders-info__price">Price: 30<span>$</span></span>
-                  <span className="orders-info__quantity">Quantity: 3<span>pcs.</span></span>
-                </div>
+                {cart.items?.length && cart.items.map(renderOrder)}
               </div>
             </div>
           </div>

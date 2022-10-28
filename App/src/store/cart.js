@@ -17,20 +17,25 @@ export const addToCart = createAsyncThunk(
   }
 )
 
+export const removeItemFromCart = createAsyncThunk(
+  'cart/removeItemFromCart',
+  async ({userId, items}) => {
+    await setUserCart(userId, items);
+    return items;
+  }
+)
+
+const defaultReducer = (state, action) => {
+  state.items = action.payload;
+};
 
 export const cartSlice = createSlice({
   name: 'cart',
   initialState: {items: []},
   extraReducers: (builder) => {
-    builder.addCase(fetchCart.fulfilled, (state, action) => {
-      state.items = action.payload;
-    });
-    builder.addCase(fetchCart.rejected, (state, action) => {
-      state.items = action.payload;
-    });
-    builder.addCase(addToCart.fulfilled, (state, action) => {
-      state.items = action.payload;
-    });
+    builder.addCase(fetchCart.fulfilled, defaultReducer);
+    builder.addCase(addToCart.fulfilled, defaultReducer);
+    builder.addCase(removeItemFromCart.fulfilled, defaultReducer);
   },
 })
 
