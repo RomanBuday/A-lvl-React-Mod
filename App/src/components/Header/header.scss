@@ -1,6 +1,6 @@
 .header {
-    min-height: 100vh;
-    width: 100%;
+    min-height: 100%;
+    //width: 100%;
     background: top/cover url("/img/header_bkg.png") no-repeat;
     color: var(--light-color);
     &-top {
@@ -8,10 +8,12 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 56px;
+      padding-bottom: 56px;
     }
     &-wrapper {
       display: flex;
       flex-direction: column;
+      min-height: calc(100vh - 112px - 50px);
     }
     &-link {
       margin-right: 24px;
@@ -86,11 +88,11 @@
       font-family: var(--font-family-work);
       font-weight: 700;
       font-size: 56px;
-      transform: translateY(50%);
+      //transform: translateY(50%);
     }
     &-bottom {
       padding: 0 120px;
-      transform: translateY(100%);
+      //transform: translateY(100%);
       font-family: var(--font-family);
     }
     &-player {
@@ -127,6 +129,7 @@
     }
     &-barContainer {
       cursor: pointer;
+      padding-bottom: 20px;
     }
     &-durationBar {
       width: 100%;
