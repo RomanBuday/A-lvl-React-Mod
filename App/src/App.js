@@ -1,18 +1,15 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+import Cart from './components/Cart/cart';
 import Store from './components/Store/store';
 import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
 import NotFound from './components/NotFound/404';
-import Register from './components/Register/register';
-import Cart from './components/Cart/cart';
 import Profile from './components/Profile/profile';
-import {getApp} from './firebase';
+import SongPage from './components/SongPage/songPage';
 
 import './scss/main.scss';
-
-const app = getApp();
 
 function App() {
   return (
@@ -24,7 +21,7 @@ function App() {
             <Route path='/' element={<Store />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/register' element={<Register />} />
+            <Route path='/song/:itemId' element={<SongPage />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </main>

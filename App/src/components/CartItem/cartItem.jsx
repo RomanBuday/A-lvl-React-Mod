@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const CartItem = props => {
   const {
     band,
@@ -13,9 +15,11 @@ const CartItem = props => {
 
   return (
     <div className="shop-item" key={item_id}>
-      <div className="shop-item__img">
-        <img src={album_img} alt="releases" />
-      </div>
+      <Link to={`song/${item_id}`}>
+        <div className="shop-item__img">
+          <img src={album_img} alt="releases" />
+        </div>
+      </Link>
 
       <div className="shop-item__descr">
         <div className="shop-info">

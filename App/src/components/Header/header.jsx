@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   getAuth,
   signInWithPopup,
@@ -20,11 +20,13 @@ import './header.scss';
 import { getApp } from '../../firebase';
 import { setUser, removeUser } from '../../store/user';
 import { fetchCart } from '../../store/cart';
+import { fetchAllSongs } from '../../store/music';
 
 const app = getApp();
 const auth = getAuth(app);
 
 const Header = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const cart = useSelector(state => state.cart);
   const dispatch = useDispatch();
@@ -36,6 +38,10 @@ const Header = () => {
       dispatch(fetchCart(user.email));
     }
   }, [user]);
+
+  useEffect(() => {
+    dispatch(fetchAllSongs());
+  }, []);
 
   const onClickSignOut = () => {
     signOut(auth)
@@ -80,21 +86,31 @@ const Header = () => {
 
           <nav>
             <ul className="header-menu">
-              <li className="header-menu__item" href="">
-                New releases
-              </li>
-              <li className="header-menu__item" href="">
-                Store
-              </li>
-              <li className="header-menu__item" href="">
-                Sign In
-              </li>
+              <Link to="/Slider">
+                <li className="header-menu__item" href="">
+                  New releases
+                </li>
+              </Link>
+
+              <Link to="/Store">
+                <li className="header-menu__item" href="">
+                  Store
+                </li>
+              </Link>
+
+              <Link to="/SignIn">
+                <li className="header-menu__item" href="">
+                  Sign In
+                </li>
+              </Link>
+
               <Link to="/Profile">
                 <li className="header-menu__item" href="">
                   My Profile
                 </li>
               </Link>
-              <Link to="/NotFound">
+
+              <Link to="/Contacts">
                 <li className="header-menu__item" href="">
                   Contacts
                 </li>
@@ -108,7 +124,7 @@ const Header = () => {
                 <Link to="/cart">
                   <img src={icon_cart} alt="cart icon" />
                   <div className="header-actions__orders">
-                    <span>{cart.items.length}</span>
+                    <span>{cart.items?.length || 0}</span>
                   </div>
                 </Link>
               </div>
@@ -118,13 +134,13 @@ const Header = () => {
                 <div>
                   <Link to="/Profile">
                     <img src={profile_icon} alt="profile icon" />
-                  </Link>{' '}
+                  </Link>
                   <button
                     className="btn-buy header-actions__btn"
                     onClick={onClickSignOut}
                   >
                     Sign out
-                  </button>{' '}
+                  </button>
                 </div>
               ) : (
                 <SignIn onClick={onClickSignIn} />
@@ -133,7 +149,11 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="header-wrapper">
+        <div
+          className={
+            'header-wrapper' + (location.pathname !== '/' ? ' hide' : '')
+          }
+        >
           <h1 className="header-title">
             Vinyl & Digital <br /> music with best price{' '}
           </h1>

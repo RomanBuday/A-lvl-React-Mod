@@ -1,11 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 //import { counter } from '../../store/counter';
 
 import './cart.scss';
+import { removeItemFromCart } from '../../store/cart';
 
-const renderItems = (cart, onReset) => {
+const renderItems = (cart, onRemoveFromCartClick) => {
   const counted = Object.values(_.groupBy(cart.items, 'item_id')).map(
     group => ({ ...group[0], count: group.length })
   );
@@ -18,28 +19,8 @@ const renderItems = (cart, onReset) => {
       album_img,
       count,
       onDecrement,
-      onIncrement,
-      onReset
+      onIncrement
     } = song;
-
-    // value={store.getState()}
-    //   onIncrement={() => {
-    //     const val = store.getState();
-    //     if (val < 99) {
-    //       store.dispatch({
-    //         type: 'INCREMENT'
-    //       });
-    //     }
-    //   }}
-
-    //   onDecrement={() => {
-    //     const val = store.getState();
-    //     if (val > 0) {
-    //       store.dispatch({
-    //         type: 'DECREMENT'
-    //       });
-    //     };
-    //   }}
 
     return (
       <div className="modal-descr" key={item_id}>
@@ -50,10 +31,7 @@ const renderItems = (cart, onReset) => {
         <div className="modal-descr__info">
           <span className="modal-descr__band">Band: {band}</span>
           <span className="modal-descr__album">Album: "{album}"</span>
-          <span className="modal-descr__price">
-            Price: {price}
-            <span>$</span>
-          </span>
+          <span className="modal-descr__price">Price: {price} $</span>
 
           <div className="modal-counter">
             <button className="modal-counter__minus" onClick={onDecrement}>
@@ -63,7 +41,10 @@ const renderItems = (cart, onReset) => {
             <button className="modal-counter__plus" onClick={onIncrement}>
               V
             </button>
-            <button className="modal-counter__remove" onClick={() => onReset()}>
+            <button
+              className="modal-counter__remove"
+              onClick={() => onRemoveFromCartClick(item_id)}
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                 <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z" />
               </svg>
@@ -76,14 +57,14 @@ const renderItems = (cart, onReset) => {
 };
 
 const Cart = () => {
-  const cart = useSelector(state => state.cart);
-  console.log(cart);
-  // const dispatch = useDispatch();
+  const [cart, user] = useSelector(state => [state.cart, state.user]);
+  const dispatch = useDispatch();
 
-  const onReset = () => {
-    // store.dispatch({
-    //   type: 'RESET'
-    // });
+  const onRemoveFromCartClick = itemId => {
+    const newCartItems = cart.items.filter(s => s.item_id !== itemId);
+    dispatch(
+      removeItemFromCart({ userId: user?.user?.email, items: newCartItems })
+    );
   };
 
   return (
@@ -92,7 +73,9 @@ const Cart = () => {
         <div className="modal-content fade">
           <h3 className="modal-header">Your Choice</h3>
 
-          <div className="modal-descr__wrapper">{renderItems(cart, onReset)}</div>
+          <div className="modal-descr__wrapper">
+            {renderItems(cart, onRemoveFromCartClick)}
+          </div>
 
           <div className="modal-total">
             <span className="modal-total__text">Summary</span>
